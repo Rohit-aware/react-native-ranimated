@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import { Walkthrough, Welcome } from "./src/screens";
+import AuthMain from "./src/screens/Authentication/AuthMain";
 
 
 const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ const App = () => {
             >
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="Walkthrough" component={Walkthrough} />
+                <Stack.Screen name="AuthMain" component={AuthMain} />
             </Stack.Navigator>
         </NavigationContainer>
     )
