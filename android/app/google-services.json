@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "348334629981",
+    "project_id": "react-native-reanimated",
+    "storage_bucket": "react-native-reanimated.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348334629981:android:005fb4b3f7b342880d59b4",
+        "android_client_info": {
+          "package_name": "com.react_native_animation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348334629981-22pqub3inck1mdbn810lfdsgs8jtb1p0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.react_native_animation",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "348334629981-j03nfthj332454bkkq3akq0rvlmfc93c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlTcvecqVam_nMjh2hz78Oz6EDof9RTL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348334629981-j03nfthj332454bkkq3akq0rvlmfc93c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

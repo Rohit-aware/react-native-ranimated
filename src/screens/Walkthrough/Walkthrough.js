@@ -12,29 +12,20 @@ const Walkthrough = ({navigation}) => {
   const [walkthrough2Animate, setWakthrough2Animate] = useState(false);
   const [walkthrough3Animate, setWakthrough3Animate] = useState(false);
   const [walkthrough4Animate, setWakthrough4Animate] = useState(false);
-  const [press, setPress] = useState(true); // Set initial value to false
-  const onViewChangeRef = useRef(({viewableItems, Changed}) => {
-    const lastIndex = viewableItems.length - 1;
-    if (viewableItems[0].index == 1) {
-      //walkthrought page 2
-      setWakthrough2Animate(true);
-      setWakthrough3Animate(false);
-      setWakthrough4Animate(false);
-    } else if (viewableItems[0].index == 2) {
-      //walkthrought page 2
-      setWakthrough2Animate(false);
-      setWakthrough3Animate(true);
-      setWakthrough4Animate(false);
-    } else if (viewableItems[0].index == 3) {
-      //walkthrought page 2
-      setWakthrough2Animate(false);
-      setWakthrough3Animate(false);
-      setWakthrough4Animate(true);
-    } else if (viewableItems[0].index === lastIndex) {
-      // Last index reached, set press to false
-      setPress(false);
+
+
+  const onViewChangeRef = useRef(({ viewableItems, changed }) => {
+    // console.log("onViewChangeRef called", viewableItems);
+  
+    if (viewableItems.length > 0) {
+      const currentIndex = viewableItems[0].index;
+  
+      setWakthrough2Animate(currentIndex === 1);
+      setWakthrough3Animate(currentIndex === 2);
+      setWakthrough4Animate(currentIndex === 3);
     }
   });
+
   // walthrough 1
 
   const scrollX = useRef(new Animated.Value(0)).current; // this important for view scrolling
@@ -121,7 +112,6 @@ const Walkthrough = ({navigation}) => {
               color: COLORS.light,
               ...FONTS.h3,
             }}
-            disabled={press}
             onPress={() =>{
               navigation.reset({
                 index: 0,
@@ -141,7 +131,7 @@ const Walkthrough = ({navigation}) => {
         keyExtractor={item => item.id}
         horizontal
         snapToInterval={SIZES.width}
-        decelerationRate={'fast'}
+        decelerationRate={0.7}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
         onViewableItemsChanged={onViewChangeRef.current}

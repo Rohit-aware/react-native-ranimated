@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { GoogleSignin, statusCodes  } from '@react-native-google-signin/google-signin';
 import {
   View,
   Text,
@@ -21,14 +22,113 @@ import {COLORS, SIZES, images, FONTS, icons} from '../../constants';
 import {MotiView, useAnimationState} from 'moti';
 import {Shadow} from 'react-native-shadow-2';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import auth, { firebase } from '@react-native-firebase/auth';
 
-const AuthMain = () => {
+
+const AuthMain = ({navigation}) => {
   // Country
-  const [countries, setCountries] = React.useState([]);
-  const [selectedCountry, setSelectedCountry] = React.useState(null);
-  const [showCountryModal, setShowCountryModal] = React.useState(false);
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [showCountryModal, setShowCountryModal] = useState(false);
 
-  React.useEffect(() => {
+   //   State
+   const [Data, setData] = useState({
+    uid: '',
+    email:'',
+    // Add other user data you want to store
+  });
+   const [name, setName] = useState();
+   const [phone, setPhone] = useState();
+   const [email, setEmail] = useState();
+   const [password, setPassword] = useState();
+   const [isVisible, setIsVisible] = useState(false);
+   const [termsChecked, setTermsChecked] = useState(false);
+   const [mode, setMode] = useState('signIn');
+
+
+   console.log("Email: " + email)
+   console.log("Password: " + password)
+
+  //  Sign In FireBase using social netwoeking account: 
+  const googleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log("User info: ....................." + JSON.stringify(userInfo.user))
+      console.log("User info Data: ....................." + !!userInfo.user)
+      !!userInfo.user ? 
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      }) : null
+    
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log("error.........................",error)
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        console.log("error.........................",error)
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+          console.log("error.........................",error)
+      } else {
+        // some other error happened
+      }
+    }
+  };
+
+  // sign in using email and password creating account
+  const signUnFun = () =>{
+    try {
+      auth()
+  .createUserWithEmailAndPassword(email, password)
+  .then(() => {
+    console.log('User account created & signed in!');
+    navigation.navigate('AuthMain');
+  })
+  .catch(error => {
+    if (error.code === 'auth/email-already-in-use') {
+      console.log('That email address is already in use!');
+    }
+
+    if (error.code === 'auth/invalid-email') {
+      console.log('That email address is invalid!');
+    }
+
+    console.error(error);
+  });
+    } catch (error) {
+     console.log("errror in email password: " + error); 
+    }
+  }
+
+// login using created account
+const handleSignIn = async () => {
+  try {
+    const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    console.log('User signed in:', user);
+
+    // Store user data locally (you might want to use AsyncStorage or another solution)
+    // For simplicity, storing in state here
+    setData({
+      uid: user.uid,
+      email: user.email,
+      // Add other user data you want to store
+    });
+
+    // Navigate to the next screen (replace 'NextScreen' with your screen name)
+    navigation.navigate('Home');
+  } catch (error) {
+    console.error('Error signing in:', error);
+  }
+};
+
+
+ useEffect(() => {
+
+  GoogleSignin.configure();
     // Fetch countires
     fetch('https://restcountries.com/v2/all')
       .then(response => response.json())
@@ -115,16 +215,6 @@ const AuthMain = () => {
       </Modal>
     );
   }
-
-  //   State
-
-  const [name, setName] = useState();
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [isVisible, setIsVisible] = useState(false);
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [mode, setMode] = useState('signIn');
 
   //   Animation State
   const animationState = useAnimationState({
@@ -237,6 +327,7 @@ const AuthMain = () => {
                     color: COLORS.support3,
                     ...FONTS.h4,
                   }}
+                  onPress={()=>navigation.navigate('ForgotPassword')}
                 />
               </View>
             </KeyboardAwareScrollView>
@@ -251,7 +342,7 @@ const AuthMain = () => {
               labelStyle={{
                 ...FONTS.h3,
               }}
-              onPress={() => console.log('Login....')}
+              onPress={() =>handleSignIn()}
             />
           </View>
         </Shadow>
@@ -412,6 +503,7 @@ const AuthMain = () => {
               }}
               onPress={() => {
                 console.log('Create Account');
+                signUnFun();
               }}
             />
           </View>
@@ -507,6 +599,7 @@ const AuthMain = () => {
               ...styles.socialBtnContainer,
               marginLeft: SIZES.radius,
             }}
+            onPress={()=>googleLogin()}
           />
           <IconButton
             icon={icons.linkedin}
@@ -537,8 +630,8 @@ const AuthMain = () => {
         paddingHorizontal: SIZES.padding,
         backgroundColor: COLORS.lightGrey,
       }}>
-      {/* LOGO  */}
 
+      {/* LOGO  */}
       <Image
         source={images.logo}
         style={{
