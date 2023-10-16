@@ -1,31 +1,37 @@
-import React, {useRef, useState} from 'react';
-import {View, Text, Animated} from 'react-native';
-import {TextButton} from '../../components';
-import {COLORS, SIZES, constants, images, FONTS} from '../../constants';
+import React, { useRef, useState } from 'react';
+import { View, Text, Animated, StyleSheet } from 'react-native';
+import { TextButton } from '../../components';
+import { COLORS, SIZES, constants, FONTS } from '../../constants';
 import Walkthrough1 from './Walkthrough1';
 import Walkthrough2 from './Walkthrough2';
 import Walkthrough3 from './Walkthrough3';
 import Walkthrough4 from './Walkthrough4';
 
-const Walkthrough = ({navigation}) => {
+const Walkthrough = ({ navigation }) => {
+
   // walkthrough 2
   const [walkthrough2Animate, setWakthrough2Animate] = useState(false);
   const [walkthrough3Animate, setWakthrough3Animate] = useState(false);
   const [walkthrough4Animate, setWakthrough4Animate] = useState(false);
+  const [INDEX, setINDEX] = useState();
+  const slideRef = useRef(null)
 
 
   const onViewChangeRef = useRef(({ viewableItems, changed }) => {
     // console.log("onViewChangeRef called", viewableItems);
-  
-    if (viewableItems.length > 0) {
-      const currentIndex = viewableItems[0].index;
-  
-      setWakthrough2Animate(currentIndex === 1);
-      setWakthrough3Animate(currentIndex === 2);
-      setWakthrough4Animate(currentIndex === 3);
+    const INDEX = viewableItems[0].index;
+    setINDEX(viewableItems[0].index)
+    try {
+      setWakthrough2Animate(INDEX === 1);
+      setWakthrough3Animate(INDEX === 2);
+      setWakthrough4Animate(INDEX === 3);
+    } catch (error) {
+      console.log("error..........", error)
     }
-  });
+  }
+  );
 
+  console.log("Index.............................",INDEX)
   // walthrough 1
 
   const scrollX = useRef(new Animated.Value(0)).current; // this important for view scrolling
@@ -49,16 +55,15 @@ const Walkthrough = ({navigation}) => {
             outputRange: [COLORS.dark08, COLORS.primary, COLORS.dark08],
             extrapolate: 'clamp',
           });
+          const dotWidth = scrollX.interpolate({
+            inputRange : [(index - 1) * SIZES.width, index * SIZES.width, (index + 1) * SIZES.width],
+            outputRange: [10, 20, 10],
+            extrapolate: 'clamp',
+          });
           return (
             <Animated.View
               key={`dots-${index}`}
-              style={{
-                borderRadius: 5,
-                marginHorizontal: 6,
-                width: 10,
-                height: 10,
-                backgroundColor: dotColor,
-              }}
+              style={[{width :dotWidth, backgroundColor:dotColor },styles.dot]}
             />
           );
         })}
@@ -112,10 +117,10 @@ const Walkthrough = ({navigation}) => {
               color: COLORS.light,
               ...FONTS.h3,
             }}
-            onPress={() =>{
+            onPress={() => {
               navigation.reset({
                 index: 0,
-                routes: [{name: 'AuthMain'}],
+                routes: [{ name: 'AuthMain' }],
               })
             }}
           />
@@ -124,8 +129,14 @@ const Walkthrough = ({navigation}) => {
     );
   };
 
+  // this maintain the time  to change the index
+
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 10,
+  }).current;
+
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.light}}>
+    <View style={{ flex: 1, backgroundColor: COLORS.light }}>
       <Animated.FlatList
         data={constants.walkthrough}
         keyExtractor={item => item.id}
@@ -134,17 +145,18 @@ const Walkthrough = ({navigation}) => {
         decelerationRate={0.7}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
-        onViewableItemsChanged={onViewChangeRef.current}
+        onViewableItemsChanged={onViewChangeRef.current} // this maintain the time  to change the index
         contentContainerStyle={{
           flexGrow: 1,
         }}
+        viewabilityConfig={viewabilityConfig}
         onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           {
             useNativeDriver: false,
           },
         )}
-        renderItem={({item, index}) => {
+        renderItem={({ item, index }) => {
           return (
             <View
               style={{
@@ -152,7 +164,7 @@ const Walkthrough = ({navigation}) => {
                 justifyContent: 'center',
               }}>
               {/* Walkthrough Images */}
-              <View style={{flex: 1, justifyContent: 'center'}}>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
                 {index == 0 && <Walkthrough1 />}
                 {index == 1 && <Walkthrough2 animate={walkthrough2Animate} />}
                 {index == 2 && <Walkthrough3 animate={walkthrough3Animate} />}
@@ -166,7 +178,7 @@ const Walkthrough = ({navigation}) => {
                   justifyContent: 'flex-start',
                   paddingHorizontal: SIZES.padding,
                 }}>
-                <Text style={{...FONTS.h1}}>{item.title}</Text>
+                <Text style={{ ...FONTS.h1 }}>{item.title}</Text>
                 <Text
                   style={{
                     marginTop: SIZES.radius,
@@ -187,3 +199,11 @@ const Walkthrough = ({navigation}) => {
 };
 
 export default Walkthrough;
+
+const styles = StyleSheet.create({
+  dot:{
+    borderRadius: 5,
+    marginHorizontal: 6,
+    height: 10,
+  }
+})

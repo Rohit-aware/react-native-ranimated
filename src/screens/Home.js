@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, } from 'react-native';
 import React from 'react'
+import CircularProgress from '../components/circular-bar/CircularProgressBar ';
 
 const Home = () => {
   return (
-    <View  sty>
-      <Text>Home</Text>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <CircularProgress initialValue={10} />
     </View>
-  )
+  );
 }
 
 export default Home;
