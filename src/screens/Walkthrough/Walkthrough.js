@@ -120,7 +120,7 @@ const Walkthrough = ({ navigation }) => {
             onPress={() => {
               navigation.reset({
                 index: 0,
-                routes: [{ name: 'AuthMain' }],
+                routes: [{ name: 'Tabs' }],
               })
             }}
           />

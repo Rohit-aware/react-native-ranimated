@@ -3,6 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import { Walkthrough, Welcome,ForgotPassword,Home } from "./src/screens";
 import AuthMain from "./src/screens/Authentication/AuthMain";
+import Tabs from "./src/routes/TabNavigation";
+import MyTabs from "./src/routes/Mytabs";
 
 
 const Stack = createStackNavigator();
@@ -21,6 +23,8 @@ const App = () => {
                 <Stack.Screen name="AuthMain" component={AuthMain} /> 
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> 
                 <Stack.Screen name="Home" component={Home} /> 
+                <Stack.Screen name="Tabs" component={Tabs} /> 
+                <Stack.Screen name="MyTabs" component={MyTabs} /> 
             </Stack.Navigator>
         </NavigationContainer>
     )
