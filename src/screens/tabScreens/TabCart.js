@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import React from 'react'
 import Bag from '../../assets/svg/home/Bag'
 
-const TabCart = () => {
+const TabCart = ({navigation}) => {
   const data=[
     {
       img :Bag,
@@ -47,7 +47,7 @@ const TabCart = () => {
       />
 
       <View style={{flexDirection:'row',justifyContent:'space-between',marginVertical:10,marginHorizontal:'4%'}}>
-        <TouchableOpacity style={{width:'48%',backgroundColor:'white', padding:10,borderRadius:15,alignItems:'center'}}>
+        <TouchableOpacity style={{width:'48%',backgroundColor:'white', padding:10,borderRadius:15,alignItems:'center'}} onPress={()=>navigation.navigate('Login')}>
           <Text style={{color:'black',fontSize:16,fontWeight:'600'}}>Start as a condidate</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{width:'48%', padding:10,borderRadius:15,borderWidth:1,borderColor:'white',alignItems:'center'}}>

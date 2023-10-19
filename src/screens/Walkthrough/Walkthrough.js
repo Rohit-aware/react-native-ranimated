@@ -142,7 +142,7 @@ const Walkthrough = ({ navigation }) => {
         keyExtractor={item => item.id}
         horizontal
         snapToInterval={SIZES.width}
-        decelerationRate={0.7}
+        decelerationRate={'fast'}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
         onViewableItemsChanged={onViewChangeRef.current} // this maintain the time  to change the index
