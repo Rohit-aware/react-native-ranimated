@@ -12,17 +12,12 @@ const CategoryList = ({ route, navigation }) => {
 
     const [selectedItem, setSelectedItem] = useState(0);
 
-    const handleItemPress = (index) => {
-        setSelectedItem(index);
-    };
-
-
     const renderLeftSide = (item, index) => {
         const isSelected = index === selectedItem;
 
         return (
             <TouchableOpacity style={[styles.leftContainer, { backgroundColor: isSelected ? '#FCF1D9' : 'white', borderRadius: isSelected ? moderateScale(10) : moderateScale(0) }]}
-                onPress={() => handleItemPress(index)}
+                onPress={() => setSelectedItem(index)}
             >
                 <View>
                     <Image
@@ -39,7 +34,7 @@ const CategoryList = ({ route, navigation }) => {
 
     const renderRightSide = (item, index) => {
         return (
-            <TouchableOpacity style={{ flexGrow: 1, width: '38%', backgroundColor: '#fff', paddingHorizontal: moderateScale(5) }}>
+            <View style={{ flexGrow: 1, width: '38%', backgroundColor: '#fff', paddingHorizontal: moderateScale(5) }}>
                 <View>
                     <Image
                         source={item.img}
@@ -70,7 +65,7 @@ const CategoryList = ({ route, navigation }) => {
                         <CartIcon />
                     </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+            </View>
         )
     }
     return (
@@ -115,7 +110,6 @@ const CategoryList = ({ route, navigation }) => {
                         columnWrapperStyle={{
                             columnGap: 10,
                             paddingBottom: 10
-
                         }}
                         renderItem={({ item, index }) => renderRightSide(item, index)}
                     />

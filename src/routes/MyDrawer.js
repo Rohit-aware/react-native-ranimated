@@ -83,6 +83,16 @@ const DrawerComp = () => {
                     </Text>
 
                 </DrawerItem>
+                <DrawerItem
+                    Img={DashboardIcon}
+                    onPress={() => {
+                        navigateToDrawerScreen('DrawerStack' ,'TrolleyCredit');
+                    }}>
+                    <Text style={{ ...fontStyles.MontserratMedium14 }}>
+                    Trolley Credit
+                    </Text>
+
+                </DrawerItem>
             </View>
 
         </View>

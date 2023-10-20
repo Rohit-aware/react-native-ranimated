@@ -18,6 +18,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerComp from "./src/routes/MyDrawer";
 import { Dimensions } from "react-native";
 import CategoryList from "./src/screens/category-list/category.list.screen";
+import TrolleyCredit from "./src/screens/trolley-credit/trolley-credit.screen";
 
 
 const Stack = createStackNavigator();
@@ -50,6 +51,11 @@ const DrawerStack = () => {
         <Drawer.Screen
           name="DrawerProfile"
           component={DrawerProfile}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name="TrolleyCredit"
+          component={TrolleyCredit}
           options={{ headerShown: false }}
         />
         {/* Add other Drawer.Screen components for other screens */}
@@ -85,6 +91,7 @@ const App = () => {
                 <Stack.Screen name="TermsPolicy" component={TermsPolicy} /> 
                 <Stack.Screen name="LastOffer" component={LastOffer} /> 
                 <Stack.Screen name="CategoryList" component={CategoryList} /> 
+                <Stack.Screen name="TrolleyCredit" component={TrolleyCredit} /> 
             </Stack.Navigator>
         </NavigationContainer>
     )

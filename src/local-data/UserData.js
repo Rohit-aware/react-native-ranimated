@@ -152,3 +152,90 @@ export const SubCategoryDisplayData =[
         discounted:'EGP 199.45',
     },
 ]
+
+export const BuyAgainListData = [
+    {
+        title:'Fresh Vegetables',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Seasonal',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Leafy & Herbs',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Fresh Cuts',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Dry Fruits',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Snacks',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Makeup & Beauty',
+        img:require('../assets/images/vegitable.png')
+    },
+    {
+        title:'Dairy Products',
+        img:require('../assets/images/vegitable.png')
+    },
+
+]
+
+export default Credit=[
+    {
+        payment_type:'Paid',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Paid',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Paid',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Topped Up',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Paid',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Topped Up',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Paid',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+    {
+        payment_type:'Topped Up',
+        payment_id:'#TDHSIO3332',
+        payment_date:'26th May 2023, 11:30 am',
+        payment_price:'EGP 198.90'
+    },
+]
