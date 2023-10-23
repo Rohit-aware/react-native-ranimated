@@ -7,7 +7,7 @@ import commonStyles from '../../styles/common-styles'
 import Credit from '../../local-data/UserData'
 const TrolleyCredit = ({navigation}) => {
 
-    const tyep=[
+    const type=[
         {
             name:'All'
         },
@@ -25,7 +25,7 @@ const TrolleyCredit = ({navigation}) => {
         if (selectedIndex === 0) {
           return Credit; // Display all data
         } else {
-          const selectedType = tyep[selectedIndex].name;
+          const selectedType = type[selectedIndex].name;
           return Credit.filter(item => item.payment_type.toLowerCase() === selectedType.toLowerCase());
         }
       };
@@ -70,13 +70,14 @@ const TrolleyCredit = ({navigation}) => {
             <Header
                 lable={'Trolley Credit'}
                 prependCoponent={Back}
+                onPressLeft={()=>navigation.goBack()}
             />
             <View style={[commonStyles.flexRowJCAC,{
                 columnGap:20,
                 paddingVertical:20,
                 backgroundColor:'white'
             }]}>
-                {tyep.map((item,index)=>{
+                {type.map((item,index)=>{
                     const  isSelected = index === selectedIndex 
                     return(
                         <TouchableOpacity style={[commonStyles.centerJCAC,{
@@ -98,13 +99,13 @@ const TrolleyCredit = ({navigation}) => {
             </View>
 
             <ScrollView style={{
-                // backgroundColor:'#ebebeb',
                 margin:20,
             }}
                 showsVerticalScrollIndicator={false}
             >
             <FlatList
                 data={filterData()}
+                scrollEnabled={false}
                 contentContainerStyle={{
                     rowGap:10,
                 }}

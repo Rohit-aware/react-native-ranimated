@@ -86,7 +86,7 @@ const commonStyles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    elevation: 10,
+    elevation: 3,
   },
 
   // !Login 

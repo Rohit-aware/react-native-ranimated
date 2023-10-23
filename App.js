@@ -19,6 +19,7 @@ import DrawerComp from "./src/routes/MyDrawer";
 import { Dimensions } from "react-native";
 import CategoryList from "./src/screens/category-list/category.list.screen";
 import TrolleyCredit from "./src/screens/trolley-credit/trolley-credit.screen";
+import Orders from "./src/screens/Order-listing/Orders";
 
 
 const Stack = createStackNavigator();
@@ -58,6 +59,11 @@ const DrawerStack = () => {
           component={TrolleyCredit}
           options={{ headerShown: false }}
         />
+        <Drawer.Screen
+          name="Orders"
+          component={Orders}
+          options={{ headerShown: false }}
+        />
         {/* Add other Drawer.Screen components for other screens */}
       </Drawer.Navigator>
     );
@@ -92,6 +98,7 @@ const App = () => {
                 <Stack.Screen name="LastOffer" component={LastOffer} /> 
                 <Stack.Screen name="CategoryList" component={CategoryList} /> 
                 <Stack.Screen name="TrolleyCredit" component={TrolleyCredit} /> 
+                <Stack.Screen name="Orders" component={Orders} /> 
             </Stack.Navigator>
         </NavigationContainer>
     )
